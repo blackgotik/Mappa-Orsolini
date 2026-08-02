@@ -29,4 +29,11 @@ Aprire `http://localhost:3000`.
 - Evidenziazione delle aree con geometrie vettoriali originali.
 - Selezione diretta delle aree sulla mappa.
 - Zoom e adattamento mobile.
-- Dati dei marchi ancora da inserire.
+- Modalità rilievo marchi disponibile aggiungendo `?editor=1` all’indirizzo.
+- Salvataggio automatico dei segnaposto nel browser.
+- Spostamento dei punti tramite trascinamento ed eliminazione dall’elenco.
+- Esportazione del file `marchi-orsolini.json` per la pubblicazione definitiva.
+
+## Rilievo dei marchi
+
+Aprire, per esempio, `http://localhost:3000/?editor=1`. Inserire il nome del marchio, scegliere il reparto e toccare la posizione sulla planimetria. Il punto può essere trascinato per correggerlo. Al termine usare **Esporta elenco** e conservare il file JSON.
