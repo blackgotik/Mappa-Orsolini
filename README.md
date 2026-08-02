@@ -31,7 +31,7 @@ Aprire `http://localhost:3000`.
 - Selezione diretta delle aree sulla mappa.
 - I segnaposti dei marchi restano nascosti finché non viene selezionato un risultato.
 - La planimetria pubblica resta neutra: il retino colorato si accende soltanto sul risultato selezionato.
-- Le posizioni dello stesso marchio vengono evidenziate con il colore del reparto.
+- Le superfici fisiche associate ai marchi vengono evidenziate con il colore del reparto; i sei punti già pubblicati hanno un perimetro dedicato.
 - Zoom automatico per inquadrare insieme tutti i risultati dello stesso marchio.
 - Zoom manuale e adattamento mobile.
 - Modalità rilievo marchi disponibile aggiungendo `?editor=1` all’indirizzo.

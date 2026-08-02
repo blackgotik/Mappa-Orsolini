@@ -679,11 +679,19 @@ button {
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
 }
 
-.public-result-block {
-  opacity: 0.9;
-  stroke-width: 6;
+.public-result-zone,
+.public-result-fallback {
+  opacity: 0.82;
+  stroke-width: 4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
   filter: url(#active-glow);
   pointer-events: none;
+}
+
+.public-result-fallback {
+  opacity: 0.58;
+  stroke-dasharray: 8 5;
 }
 
 .public-brand-pin {

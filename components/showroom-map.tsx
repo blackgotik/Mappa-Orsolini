@@ -158,14 +158,14 @@ export function ShowroomMap() {
     const centerX = (minX + maxX) / 2;
     const centerY = (minY + maxY) / 2;
 
-    let nextZoom = activeBrandResults.length > 0 ? 1.65 : 1.25;
+    let nextZoom = activeBrandResults.length > 0 ? 1.32 : 1.2;
     if (points.length > 1) {
       const paddedWidth = Math.max(150, maxX - minX + 170);
       const paddedHeight = Math.max(150, maxY - minY + 170);
       const horizontalFit = (VIEWBOX_WIDTH * 0.82) / paddedWidth;
       const verticalFit = (viewport.clientHeight * VIEWBOX_WIDTH * 0.78)
         / (Math.max(viewport.clientWidth, 1) * paddedHeight);
-      nextZoom = Math.max(0.85, Math.min(1.75, horizontalFit, verticalFit));
+      nextZoom = Math.max(0.85, Math.min(1.5, horizontalFit, verticalFit));
     }
 
     setZoom(nextZoom);
@@ -598,6 +598,35 @@ export function ShowroomMap() {
 
                 {!editorMode ? activeBrandResults.map((marker) => {
                   const area = showroomAreas.find((item) => item.slug === marker.areaSlug);
+                  if (marker.zonePath) {
+                    return (
+                      <path
+                        className="public-result-zone"
+                        d={marker.zonePath}
+                        fill={`url(#area-hatch-${marker.areaSlug})`}
+                        stroke={area?.color ?? "#1e73be"}
+                        key={`zone-${marker.id}`}
+                        aria-hidden="true"
+                      />
+                    );
+                  }
+
+                  return (
+                    <circle
+                      className="public-result-fallback"
+                      cx={marker.x}
+                      cy={marker.y}
+                      r="34"
+                      fill={`url(#area-hatch-${marker.areaSlug})`}
+                      stroke={area?.color ?? "#1e73be"}
+                      key={`zone-${marker.id}`}
+                      aria-hidden="true"
+                    />
+                  );
+                }) : null}
+
+                {!editorMode ? activeBrandResults.map((marker) => {
+                  const area = showroomAreas.find((item) => item.slug === marker.areaSlug);
                   const labelWidth = Math.max(110, marker.name.length * 14 + 34);
                   return (
                     <g
@@ -612,23 +641,15 @@ export function ShowroomMap() {
                         if (event.key === "Enter" || event.key === " ") selectBrand(marker.id);
                       }}
                     >
-                      <rect
-                        className="public-result-block"
-                        x="-53"
-                        y="-53"
-                        width="106"
-                        height="106"
-                        rx="22"
-                        fill={`url(#area-hatch-${marker.areaSlug})`}
-                        stroke={area?.color ?? "#1e73be"}
-                      />
-                      <circle className="public-brand-pulse" r="43" fill={area?.color ?? "#1e73be"} />
-                      <g className="public-brand-label">
-                        <rect x={-labelWidth / 2} y={-68} width={labelWidth} height="36" rx="9" />
-                        <text x="0" y="-44">{marker.name}</text>
+                      <circle className="public-brand-pulse" r="34" fill={area?.color ?? "#1e73be"} />
+                      <g className="public-brand-symbol" transform="scale(0.78)">
+                        <g className="public-brand-label">
+                          <rect x={-labelWidth / 2} y={-68} width={labelWidth} height="36" rx="9" />
+                          <text x="0" y="-44">{marker.name}</text>
+                        </g>
+                        <path className="public-brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#1e73be"} />
+                        <circle className="public-brand-core" r="8" />
                       </g>
-                      <path className="public-brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#1e73be"} />
-                      <circle className="public-brand-core" r="8" />
                     </g>
                   );
                 }) : null}
