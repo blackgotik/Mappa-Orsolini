@@ -606,16 +606,6 @@ button {
   user-select: none;
 }
 
-.map-canvas:not(.is-editor) .map-base-image {
-  filter: grayscale(1) contrast(0.92) brightness(1.06);
-  opacity: 0.78;
-  transition: filter 220ms ease, opacity 220ms ease;
-}
-
-.map-canvas.has-search-result .map-base-image {
-  opacity: 0.66;
-}
-
 .interaction-layer {
   position: absolute;
   inset: 0;

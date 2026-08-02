@@ -95,7 +95,6 @@ export function ShowroomMap() {
     [activeBrandResults],
   );
   const highlightedAreaSlug = editorMode ? draftAreaSlug : activeBrand ? null : activeSlug;
-  const hasPublicResult = !editorMode && Boolean(activeArea || activeBrand);
   const matches = useMemo(() => {
     const term = normalize(query);
     if (!term) return [];
@@ -515,7 +514,7 @@ export function ShowroomMap() {
 
           <div className="map-viewport" ref={mapViewportRef}>
             <div
-              className={`map-canvas${editorMode ? " is-editor" : ""}${hasPublicResult ? " has-search-result" : ""}`}
+              className={`map-canvas${editorMode ? " is-editor" : ""}`}
               ref={mapCanvasRef}
               style={{ width: `${zoom * 100}%` }}
             >
