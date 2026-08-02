@@ -3,16 +3,17 @@
 import Image from "next/image";
 import { FormEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { showroomAreas } from "@/data/areas";
-
-type BrandMarker = {
-  id: string;
-  name: string;
-  areaSlug: string;
-  x: number;
-  y: number;
-};
+import { publishedBrands, type BrandMarker } from "@/data/brands";
 
 type MapPoint = { x: number; y: number };
+type SearchMatch = {
+  kind: "area" | "brand";
+  id: string;
+  label: string;
+  areaSlug: string;
+  color: string;
+  score: number;
+};
 
 const STORAGE_KEY = "orsolini-brand-markers-v1";
 const VIEWBOX_WIDTH = 1122.6667;
@@ -25,9 +26,18 @@ const normalize = (value: string) =>
     .toLocaleLowerCase("it")
     .trim();
 
+function getMatchScore(values: string[], term: string) {
+  const normalizedValues = values.map(normalize);
+  if (normalizedValues.some((value) => value === term)) return 3;
+  if (normalizedValues.some((value) => value.startsWith(term))) return 2;
+  if (normalizedValues.some((value) => value.includes(term) || term.includes(value))) return 1;
+  return 0;
+}
+
 export function ShowroomMap() {
   const [query, setQuery] = useState("");
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeBrandId, setActiveBrandId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [editorMode, setEditorMode] = useState(false);
   const [brandMarkers, setBrandMarkers] = useState<BrandMarker[]>([]);
@@ -49,9 +59,13 @@ export function ShowroomMap() {
         const parsed = JSON.parse(saved) as { brands?: BrandMarker[] } | BrandMarker[];
         const storedBrands = Array.isArray(parsed) ? parsed : parsed.brands;
         if (Array.isArray(storedBrands)) setBrandMarkers(storedBrands);
+        else setBrandMarkers(publishedBrands.map((brand) => ({ ...brand })));
+      } else {
+        setBrandMarkers(publishedBrands.map((brand) => ({ ...brand })));
       }
     } catch {
       // An invalid local draft should not prevent the public map from loading.
+      setBrandMarkers(publishedBrands.map((brand) => ({ ...brand })));
     } finally {
       setBrandsLoaded(true);
     }
@@ -63,22 +77,38 @@ export function ShowroomMap() {
   }, [brandMarkers, brandsLoaded]);
 
   const activeArea = showroomAreas.find((area) => area.slug === activeSlug) ?? null;
+  const activeBrand = publishedBrands.find((brand) => brand.id === activeBrandId) ?? null;
+  const activeBrandArea = activeBrand
+    ? showroomAreas.find((area) => area.slug === activeBrand.areaSlug) ?? null
+    : null;
   const highlightedAreaSlug = editorMode ? draftAreaSlug : activeSlug;
   const matches = useMemo(() => {
     const term = normalize(query);
     if (!term) return [];
 
-    return showroomAreas
-      .map((area) => {
-        const values = [area.name, ...area.keywords].map(normalize);
-        const exact = values.some((value) => value === term);
-        const starts = values.some((value) => value.startsWith(term));
-        const includes = values.some((value) => value.includes(term) || term.includes(value));
-        return { area, score: exact ? 3 : starts ? 2 : includes ? 1 : 0 };
-      })
+    const areaMatches: SearchMatch[] = showroomAreas.map((area) => ({
+      kind: "area",
+      id: area.slug,
+      label: area.name,
+      areaSlug: area.slug,
+      color: area.color,
+      score: getMatchScore([area.name, ...area.keywords], term),
+    }));
+    const brandMatches: SearchMatch[] = publishedBrands.map((brand) => {
+      const area = showroomAreas.find((item) => item.slug === brand.areaSlug);
+      return {
+        kind: "brand",
+        id: brand.id,
+        label: brand.name,
+        areaSlug: brand.areaSlug,
+        color: area?.color ?? "#2f694a",
+        score: getMatchScore([brand.name], term),
+      };
+    });
+
+    return [...brandMatches, ...areaMatches]
       .filter(({ score }) => score > 0)
       .sort((a, b) => b.score - a.score)
-      .map(({ area }) => area)
       .slice(0, 5);
   }, [query]);
 
@@ -86,17 +116,30 @@ export function ShowroomMap() {
     const area = showroomAreas.find((item) => item.slug === slug);
     if (!area) return;
     setActiveSlug(slug);
+    setActiveBrandId(null);
     setQuery(area.name);
+  }
+
+  function selectBrand(id: string) {
+    const brand = publishedBrands.find((item) => item.id === id);
+    if (!brand) return;
+    setActiveBrandId(id);
+    setActiveSlug(brand.areaSlug);
+    setQuery(brand.name);
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (matches[0]) selectArea(matches[0].slug);
+    const first = matches[0];
+    if (!first) return;
+    if (first.kind === "brand") selectBrand(first.id);
+    else selectArea(first.areaSlug);
   }
 
   function clearSearch() {
     setQuery("");
     setActiveSlug(null);
+    setActiveBrandId(null);
   }
 
   function pointFromPointer(event: ReactPointerEvent<SVGSVGElement>): MapPoint | null {
@@ -297,6 +340,7 @@ export function ShowroomMap() {
                     onChange={(event) => {
                       setQuery(event.target.value);
                       setActiveSlug(null);
+                      setActiveBrandId(null);
                     }}
                     placeholder="Es. cucine, parquet, lavabo…"
                   />
@@ -307,13 +351,17 @@ export function ShowroomMap() {
                   ) : null}
                 </form>
 
-                {query && !activeArea ? (
+                {query && !activeArea && !activeBrand ? (
                   <div className="suggestions" aria-live="polite">
                     {matches.length > 0 ? (
-                      matches.map((area) => (
-                        <button type="button" key={area.slug} onClick={() => selectArea(area.slug)}>
-                          <span className="color-dot" style={{ backgroundColor: area.color }} />
-                          <span>{area.name}</span>
+                      matches.map((match) => (
+                        <button
+                          type="button"
+                          key={`${match.kind}-${match.id}`}
+                          onClick={() => match.kind === "brand" ? selectBrand(match.id) : selectArea(match.areaSlug)}
+                        >
+                          <span className="color-dot" style={{ backgroundColor: match.color }} />
+                          <span>{match.label} <small>{match.kind === "brand" ? "Marchio" : "Reparto"}</small></span>
                           <span aria-hidden="true">→</span>
                         </button>
                       ))
@@ -324,7 +372,23 @@ export function ShowroomMap() {
                 ) : null}
               </div>
 
-              {activeArea ? (
+              {activeBrand && activeBrandArea ? (
+                <article className="area-card brand-card" style={{ "--area-color": activeBrandArea.color } as React.CSSProperties}>
+                  <div className="area-card-heading">
+                    <span className="area-number">⌖</span>
+                    <div>
+                      <p>Marchio o punto</p>
+                      <h2>{activeBrand.name}</h2>
+                    </div>
+                  </div>
+                  <p>Trovi {activeBrand.name} nel reparto {activeBrandArea.name}.</p>
+                  <div className="position-hint">
+                    <span aria-hidden="true">⌖</span>
+                    <span>Il segnaposto è evidenziato sulla planimetria.</span>
+                  </div>
+                  <button className="reset-link" type="button" onClick={clearSearch}>Nuova ricerca</button>
+                </article>
+              ) : activeArea ? (
                 <article className="area-card" style={{ "--area-color": activeArea.color } as React.CSSProperties}>
                   <div className="area-card-heading">
                     <span className="area-number">{String(showroomAreas.indexOf(activeArea) + 1).padStart(2, "0")}</span>
@@ -349,7 +413,7 @@ export function ShowroomMap() {
                 </div>
               )}
 
-              <p className="prototype-note">Prototipo iniziale: i marchi specifici verranno aggiunti nel prossimo passaggio.</p>
+              <p className="prototype-note">Sono già disponibili {publishedBrands.length} segnaposto. Gli altri verranno aggiunti progressivamente.</p>
             </>
           )}
         </aside>
@@ -419,12 +483,40 @@ export function ShowroomMap() {
                   );
                 })}
 
-                {activeArea && !editorMode ? (
+                {activeArea && !editorMode && !activeBrand ? (
                   <g className="active-marker" transform={`translate(${activeArea.marker.x} ${activeArea.marker.y})`} aria-hidden="true">
                     <circle className="marker-pulse" r="31" fill={activeArea.color} />
                     <circle className="marker-core" r="16" fill="#ffffff" stroke={activeArea.color} strokeWidth="8" />
                   </g>
                 ) : null}
+
+                {!editorMode ? publishedBrands.map((marker) => {
+                  const area = showroomAreas.find((item) => item.slug === marker.areaSlug);
+                  const labelWidth = Math.max(110, marker.name.length * 14 + 34);
+                  const isActive = marker.id === activeBrandId;
+                  return (
+                    <g
+                      className={`public-brand-marker${isActive ? " is-active" : ""}`}
+                      transform={`translate(${marker.x} ${marker.y})`}
+                      key={marker.id}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Mostra ${marker.name}`}
+                      onClick={() => selectBrand(marker.id)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") selectBrand(marker.id);
+                      }}
+                    >
+                      {isActive ? <circle className="public-brand-pulse" r="36" fill={area?.color ?? "#2f694a"} /> : null}
+                      <g className="public-brand-label">
+                        <rect x={-labelWidth / 2} y={-68} width={labelWidth} height="36" rx="9" />
+                        <text x="0" y="-44">{marker.name}</text>
+                      </g>
+                      <path className="public-brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#2f694a"} />
+                      <circle className="public-brand-core" r="8" />
+                    </g>
+                  );
+                }) : null}
 
                 {editorMode && pendingPoint ? (
                   <g className="pending-marker" transform={`translate(${pendingPoint.x} ${pendingPoint.y})`} aria-hidden="true">

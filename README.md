@@ -33,6 +33,7 @@ Aprire `http://localhost:3000`.
 - Salvataggio automatico dei segnaposto nel browser.
 - Spostamento dei punti tramite trascinamento ed eliminazione dall’elenco.
 - Esportazione del file `marchi-orsolini.json` per la pubblicazione definitiva.
+- Sei segnaposto già pubblicati e ricercabili: Valentina, Francesca, Target Point, Forma Cucine COLIBRÌ, Marazzi e Glass.
 
 ## Rilievo dei marchi
 

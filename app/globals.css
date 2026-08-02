@@ -230,6 +230,16 @@ button {
   outline: none;
 }
 
+.suggestions button small {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .suggestions p {
   margin: 0;
   padding: 14px;
@@ -656,6 +666,54 @@ button {
 .active-marker {
   pointer-events: none;
   filter: drop-shadow(0 4px 7px rgba(0, 0, 0, 0.44));
+}
+
+.public-brand-marker {
+  cursor: pointer;
+  outline: none;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+.public-brand-pin {
+  stroke: #ffffff;
+  stroke-width: 4;
+}
+
+.public-brand-core {
+  fill: #ffffff;
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: 2;
+}
+
+.public-brand-label {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.public-brand-label rect {
+  fill: rgba(20, 38, 28, 0.95);
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.public-brand-label text {
+  fill: #ffffff;
+  font-size: 21px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.public-brand-marker:hover .public-brand-label,
+.public-brand-marker:focus-visible .public-brand-label,
+.public-brand-marker.is-active .public-brand-label {
+  opacity: 1;
+}
+
+.public-brand-pulse {
+  opacity: 0.58;
+  transform-origin: center;
+  animation: marker-pulse 1.6s ease-out infinite;
 }
 
 .pending-marker {
