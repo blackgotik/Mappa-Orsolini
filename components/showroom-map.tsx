@@ -48,6 +48,8 @@ export function ShowroomMap() {
   const [selectedBrandId, setSelectedBrandId] = useState<string | null>(null);
   const [draggingBrandId, setDraggingBrandId] = useState<string | null>(null);
   const interactionSvgRef = useRef<SVGSVGElement>(null);
+  const mapViewportRef = useRef<HTMLDivElement>(null);
+  const mapCanvasRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -78,10 +80,21 @@ export function ShowroomMap() {
 
   const activeArea = showroomAreas.find((area) => area.slug === activeSlug) ?? null;
   const activeBrand = publishedBrands.find((brand) => brand.id === activeBrandId) ?? null;
+  const activeBrandResults = useMemo(() => {
+    if (!activeBrand) return [];
+    const brandName = normalize(activeBrand.name);
+    return publishedBrands.filter((brand) => normalize(brand.name) === brandName);
+  }, [activeBrand]);
   const activeBrandArea = activeBrand
     ? showroomAreas.find((area) => area.slug === activeBrand.areaSlug) ?? null
     : null;
-  const highlightedAreaSlug = editorMode ? draftAreaSlug : activeSlug;
+  const activeBrandAreas = useMemo(
+    () => Array.from(new Set(activeBrandResults.map((brand) => brand.areaSlug)))
+      .map((slug) => showroomAreas.find((area) => area.slug === slug))
+      .filter((area): area is (typeof showroomAreas)[number] => Boolean(area)),
+    [activeBrandResults],
+  );
+  const highlightedAreaSlug = editorMode ? draftAreaSlug : activeBrand ? null : activeSlug;
   const matches = useMemo(() => {
     const term = normalize(query);
     if (!term) return [];
@@ -94,23 +107,85 @@ export function ShowroomMap() {
       color: area.color,
       score: getMatchScore([area.name, ...area.keywords], term),
     }));
-    const brandMatches: SearchMatch[] = publishedBrands.map((brand) => {
+    const brandMatchesByName = new Map<string, SearchMatch>();
+    publishedBrands.forEach((brand) => {
       const area = showroomAreas.find((item) => item.slug === brand.areaSlug);
-      return {
+      const match = {
         kind: "brand",
         id: brand.id,
         label: brand.name,
         areaSlug: brand.areaSlug,
-        color: area?.color ?? "#2f694a",
+        color: area?.color ?? "#1e73be",
         score: getMatchScore([brand.name], term),
-      };
+      } satisfies SearchMatch;
+      const key = normalize(brand.name);
+      const current = brandMatchesByName.get(key);
+      if (!current || match.score > current.score) brandMatchesByName.set(key, match);
     });
+    const brandMatches = Array.from(brandMatchesByName.values());
 
     return [...brandMatches, ...areaMatches]
       .filter(({ score }) => score > 0)
       .sort((a, b) => b.score - a.score)
       .slice(0, 5);
   }, [query]);
+
+  useEffect(() => {
+    if (editorMode) return;
+
+    const viewport = mapViewportRef.current;
+    if (!viewport) return;
+
+    const points = activeBrandResults.length > 0
+      ? activeBrandResults.map(({ x, y }) => ({ x, y }))
+      : activeArea
+        ? [activeArea.marker]
+        : [];
+
+    if (points.length === 0) {
+      setZoom(1);
+      viewport.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const xs = points.map((point) => point.x);
+    const ys = points.map((point) => point.y);
+    const minX = Math.min(...xs);
+    const maxX = Math.max(...xs);
+    const minY = Math.min(...ys);
+    const maxY = Math.max(...ys);
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+
+    let nextZoom = activeBrandResults.length > 0 ? 1.65 : 1.25;
+    if (points.length > 1) {
+      const paddedWidth = Math.max(150, maxX - minX + 170);
+      const paddedHeight = Math.max(150, maxY - minY + 170);
+      const horizontalFit = (VIEWBOX_WIDTH * 0.82) / paddedWidth;
+      const verticalFit = (viewport.clientHeight * VIEWBOX_WIDTH * 0.78)
+        / (Math.max(viewport.clientWidth, 1) * paddedHeight);
+      nextZoom = Math.max(0.85, Math.min(1.75, horizontalFit, verticalFit));
+    }
+
+    setZoom(nextZoom);
+    const timer = window.setTimeout(() => {
+      const canvas = mapCanvasRef.current;
+      const currentViewport = mapViewportRef.current;
+      if (!canvas || !currentViewport) return;
+
+      const scaleX = canvas.scrollWidth / VIEWBOX_WIDTH;
+      const scaleY = canvas.scrollHeight / VIEWBOX_HEIGHT;
+      const left = centerX * scaleX - currentViewport.clientWidth / 2;
+      const top = centerY * scaleY - currentViewport.clientHeight / 2;
+      currentViewport.scrollTo({
+        left: Math.max(0, left),
+        top: Math.max(0, top),
+        behavior: "smooth",
+      });
+    }, 240);
+
+    return () => window.clearTimeout(timer);
+  }, [activeArea, activeBrandResults, editorMode]);
 
   function selectArea(slug: string) {
     const area = showroomAreas.find((item) => item.slug === slug);
@@ -226,11 +301,15 @@ export function ShowroomMap() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand" aria-label="Orsolini">
-          <span className="brand-mark" aria-hidden="true">O</span>
-          <span>
-            <strong>ORSOLINI</strong>
-            <small>Showroom Pomezia</small>
-          </span>
+          <Image
+            className="brand-logo"
+            src="/logo-orsolini.png"
+            width={186}
+            height={46}
+            alt="Orsolini — Dal 1880 Cultura della Casa"
+            priority
+          />
+          <span className="brand-location">Showroom Pomezia</span>
         </div>
         <span className="prototype-badge">{editorMode ? "Rilievo marchi" : "Mappa interattiva"}</span>
       </header>
@@ -381,10 +460,18 @@ export function ShowroomMap() {
                       <h2>{activeBrand.name}</h2>
                     </div>
                   </div>
-                  <p>Trovi {activeBrand.name} nel reparto {activeBrandArea.name}.</p>
+                  <p>
+                    {activeBrandResults.length > 1
+                      ? `Trovi ${activeBrand.name} in ${activeBrandResults.length} posizioni, nei reparti ${activeBrandAreas.map((area) => area.name).join(", ")}.`
+                      : `Trovi ${activeBrand.name} nel reparto ${activeBrandArea.name}.`}
+                  </p>
                   <div className="position-hint">
                     <span aria-hidden="true">⌖</span>
-                    <span>Il segnaposto è evidenziato sulla planimetria.</span>
+                    <span>
+                      {activeBrandResults.length > 1
+                        ? "Tutti i segnaposti trovati sono evidenziati e inquadrati insieme."
+                        : "Il segnaposto è evidenziato e centrato sulla planimetria."}
+                    </span>
                   </div>
                   <button className="reset-link" type="button" onClick={clearSearch}>Nuova ricerca</button>
                 </article>
@@ -425,8 +512,8 @@ export function ShowroomMap() {
             <button type="button" onClick={() => setZoom((value) => Math.max(0.75, value - 0.25))} aria-label="Riduci">−</button>
           </div>
 
-          <div className="map-viewport">
-            <div className="map-canvas" style={{ width: `${zoom * 100}%` }}>
+          <div className="map-viewport" ref={mapViewportRef}>
+            <div className="map-canvas" ref={mapCanvasRef} style={{ width: `${zoom * 100}%` }}>
               <Image
                 src="/planimetria-orsolini.svg"
                 alt="Planimetria dello showroom Orsolini Pomezia"
@@ -490,13 +577,12 @@ export function ShowroomMap() {
                   </g>
                 ) : null}
 
-                {!editorMode ? publishedBrands.map((marker) => {
+                {!editorMode ? activeBrandResults.map((marker) => {
                   const area = showroomAreas.find((item) => item.slug === marker.areaSlug);
                   const labelWidth = Math.max(110, marker.name.length * 14 + 34);
-                  const isActive = marker.id === activeBrandId;
                   return (
                     <g
-                      className={`public-brand-marker${isActive ? " is-active" : ""}`}
+                      className="public-brand-marker is-active"
                       transform={`translate(${marker.x} ${marker.y})`}
                       key={marker.id}
                       role="button"
@@ -507,12 +593,21 @@ export function ShowroomMap() {
                         if (event.key === "Enter" || event.key === " ") selectBrand(marker.id);
                       }}
                     >
-                      {isActive ? <circle className="public-brand-pulse" r="36" fill={area?.color ?? "#2f694a"} /> : null}
+                      <rect
+                        className="public-result-block"
+                        x="-53"
+                        y="-53"
+                        width="106"
+                        height="106"
+                        rx="22"
+                        fill={area?.color ?? "#1e73be"}
+                      />
+                      <circle className="public-brand-pulse" r="43" fill={area?.color ?? "#1e73be"} />
                       <g className="public-brand-label">
                         <rect x={-labelWidth / 2} y={-68} width={labelWidth} height="36" rx="9" />
                         <text x="0" y="-44">{marker.name}</text>
                       </g>
-                      <path className="public-brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#2f694a"} />
+                      <path className="public-brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#1e73be"} />
                       <circle className="public-brand-core" r="8" />
                     </g>
                   );
@@ -550,7 +645,7 @@ export function ShowroomMap() {
                     >
                       <rect x={-labelWidth / 2} y={-74} width={labelWidth} height="40" rx="10" />
                       <text x="0" y="-47">{marker.name}</text>
-                      <path className="brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#2f694a"} />
+                      <path className="brand-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" fill={area?.color ?? "#1e73be"} />
                       <circle r="8" />
                     </g>
                   );

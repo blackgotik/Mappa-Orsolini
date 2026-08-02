@@ -26,9 +26,13 @@ Aprire `http://localhost:3000`.
 ## Stato del prototipo
 
 - Ricerca per reparto e termini associati.
+- Logo e colori istituzionali ripresi dal sito ufficiale Orsolini.
 - Evidenziazione delle aree con geometrie vettoriali originali.
 - Selezione diretta delle aree sulla mappa.
-- Zoom e adattamento mobile.
+- I segnaposti dei marchi restano nascosti finché non viene selezionato un risultato.
+- Le posizioni dello stesso marchio vengono evidenziate con il colore del reparto.
+- Zoom automatico per inquadrare insieme tutti i risultati dello stesso marchio.
+- Zoom manuale e adattamento mobile.
 - Modalità rilievo marchi disponibile aggiungendo `?editor=1` all’indirizzo.
 - Salvataggio automatico dei segnaposto nel browser.
 - Spostamento dei punti tramite trascinamento ed eliminazione dall’elenco.
