@@ -95,6 +95,7 @@ export function ShowroomMap() {
     [activeBrandResults],
   );
   const highlightedAreaSlug = editorMode ? draftAreaSlug : activeBrand ? null : activeSlug;
+  const hasPublicResult = !editorMode && Boolean(activeArea || activeBrand);
   const matches = useMemo(() => {
     const term = normalize(query);
     if (!term) return [];
@@ -513,8 +514,13 @@ export function ShowroomMap() {
           </div>
 
           <div className="map-viewport" ref={mapViewportRef}>
-            <div className="map-canvas" ref={mapCanvasRef} style={{ width: `${zoom * 100}%` }}>
+            <div
+              className={`map-canvas${editorMode ? " is-editor" : ""}${hasPublicResult ? " has-search-result" : ""}`}
+              ref={mapCanvasRef}
+              style={{ width: `${zoom * 100}%` }}
+            >
               <Image
+                className="map-base-image"
                 src="/planimetria-orsolini.svg"
                 alt="Planimetria dello showroom Orsolini Pomezia"
                 fill
@@ -542,6 +548,19 @@ export function ShowroomMap() {
                       <feMergeNode in="SourceGraphic" />
                     </feMerge>
                   </filter>
+                  {showroomAreas.map((area) => (
+                    <pattern
+                      id={`area-hatch-${area.slug}`}
+                      key={`pattern-${area.slug}`}
+                      width="18"
+                      height="18"
+                      patternUnits="userSpaceOnUse"
+                      patternTransform="rotate(45)"
+                    >
+                      <rect width="18" height="18" fill={area.color} fillOpacity="0.2" />
+                      <path d="M 0 0 V 18" stroke={area.color} strokeWidth="7" strokeOpacity="0.92" />
+                    </pattern>
+                  ))}
                 </defs>
 
                 {showroomAreas.map((area) => {
@@ -564,7 +583,7 @@ export function ShowroomMap() {
                       }}
                     >
                       {area.paths.map((path, index) => (
-                        <path key={`${area.slug}-${index}`} d={path} fill={area.color} />
+                        <path key={`${area.slug}-${index}`} d={path} fill={`url(#area-hatch-${area.slug})`} />
                       ))}
                     </g>
                   );
@@ -600,7 +619,8 @@ export function ShowroomMap() {
                         width="106"
                         height="106"
                         rx="22"
-                        fill={area?.color ?? "#1e73be"}
+                        fill={`url(#area-hatch-${marker.areaSlug})`}
+                        stroke={area?.color ?? "#1e73be"}
                       />
                       <circle className="public-brand-pulse" r="43" fill={area?.color ?? "#1e73be"} />
                       <g className="public-brand-label">

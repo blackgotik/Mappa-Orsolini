@@ -606,6 +606,16 @@ button {
   user-select: none;
 }
 
+.map-canvas:not(.is-editor) .map-base-image {
+  filter: grayscale(1) contrast(0.92) brightness(1.06);
+  opacity: 0.78;
+  transition: filter 220ms ease, opacity 220ms ease;
+}
+
+.map-canvas.has-search-result .map-base-image {
+  opacity: 0.66;
+}
+
 .interaction-layer {
   position: absolute;
   inset: 0;
@@ -635,8 +645,15 @@ button {
 
 .map-area:hover path,
 .map-area:focus-visible path {
-  opacity: 0.24;
+  opacity: 0.11;
   stroke: rgba(255, 255, 255, 0.92);
+  filter: grayscale(1);
+}
+
+.interaction-layer.is-editor .map-area:hover path,
+.interaction-layer.is-editor .map-area:focus-visible path {
+  opacity: 0.24;
+  filter: none;
 }
 
 .map-area.is-active path {
@@ -663,9 +680,8 @@ button {
 }
 
 .public-result-block {
-  opacity: 0.28;
-  stroke: #ffffff;
-  stroke-width: 5;
+  opacity: 0.9;
+  stroke-width: 6;
   filter: url(#active-glow);
   pointer-events: none;
 }
