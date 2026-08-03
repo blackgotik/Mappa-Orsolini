@@ -405,7 +405,7 @@ export function ShowroomMap() {
             <>
               <div className="panel-copy">
                 <p className="eyebrow">Trova ciò che cerchi</p>
-                <h1>Dove vuoi andare?</h1>
+                <h1>Cosa stai cercando?</h1>
                 <p>Cerca un reparto, un prodotto o un marchio presente nello showroom.</p>
               </div>
 
