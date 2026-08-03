@@ -422,9 +422,9 @@ export function ShowroomMap() {
           ) : (
             <>
               <div className="panel-copy">
-                <p className="eyebrow">Trova ciò che cerchi</p>
-                <h1>Cosa stai cercando?</h1>
-                <p>Cerca un reparto, un prodotto o un marchio presente nello showroom.</p>
+                <p className="eyebrow">Orsolini Pomezia</p>
+                <h1>Pianifica il tuo percorso</h1>
+                <p>Cerca ciò che desideri e lasciati guidare tra le nostre collezioni</p>
               </div>
 
               <div className="search-wrap">
