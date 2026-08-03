@@ -493,34 +493,22 @@ export function ShowroomMap() {
                 </article>
               ) : (
                 <div className="search-examples">
-                  <span>Esplora i reparti</span>
-                  {showroomAreas.map((area) => (
-                    <button
-                      type="button"
-                      key={area.slug}
-                      onClick={() => selectArea(area.slug)}
-                      style={{
-                        color: "#012d5b",
-                        backgroundColor: `${area.color}1a`,
-                        border: `1px solid ${area.color}80`,
-                        boxShadow: `inset 0 -3px 0 ${area.color}`,
-                      }}
-                    >
-                      <span
-                        aria-hidden="true"
-                        style={{
-                          width: 9,
-                          height: 9,
-                          display: "inline-block",
-                          marginRight: 6,
-                          backgroundColor: area.color,
-                          borderRadius: "50%",
-                          verticalAlign: "-1px",
-                        }}
-                      />
-                      {area.name}
-                    </button>
-                  ))}
+                  <span className="search-examples-title">Esplora i reparti</span>
+                  <div className="search-example-grid">
+                    {showroomAreas.map((area) => (
+                      <button
+                        type="button"
+                        key={area.slug}
+                        onClick={() => selectArea(area.slug)}
+                        style={{ "--area-color": area.color } as React.CSSProperties}
+                      >
+                        <span className="category-rail" aria-hidden="true" />
+                        <span className="category-dot" aria-hidden="true" />
+                        <span className="category-label">{area.name}</span>
+                        <span className="category-arrow" aria-hidden="true">›</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
 

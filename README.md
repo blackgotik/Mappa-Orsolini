@@ -30,6 +30,7 @@ Aprire `http://localhost:3000`.
 - Evidenziazione delle aree con geometrie vettoriali originali.
 - Selezione diretta delle aree sulla mappa.
 - I segnaposti dei marchi restano nascosti finché non viene selezionato un risultato.
+- L'elenco dei reparti è disposto in due colonne ordinate e usa automaticamente i colori definiti in `data/areas.ts`.
 - La planimetria pubblica usa una base originale senza retini: il colore si accende soltanto sul risultato selezionato.
 - Le superfici fisiche associate ai marchi vengono evidenziate con il colore del reparto; i sei punti già pubblicati hanno un perimetro dedicato.
 - Zoom automatico per inquadrare insieme tutti i risultati dello stesso marchio.
@@ -38,6 +39,7 @@ Aprire `http://localhost:3000`.
 - Salvataggio automatico dei segnaposto nel browser.
 - Spostamento dei punti tramite trascinamento ed eliminazione dall’elenco.
 - Esportazione del file `marchi-orsolini.json` per la pubblicazione definitiva.
+- Pubblicazione dei marchi tramite sostituzione diretta di `data/marchi-orsolini.json`; i perimetri già tracciati restano in `data/brand-zones.ts`.
 - Sei segnaposto già pubblicati e ricercabili: Valentina, Francesca, Target Point, Forma Cucine COLIBRÌ, Marazzi e Glass.
 
 ## Rilievo dei marchi
