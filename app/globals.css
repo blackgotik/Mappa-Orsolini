@@ -97,6 +97,7 @@ button {
 .search-panel {
   position: relative;
   z-index: 4;
+  overflow-y: auto;
   padding: clamp(28px, 4vw, 56px) clamp(22px, 3vw, 42px);
   background: var(--panel);
   box-shadow: 14px 0 44px rgba(1, 45, 91, 0.08);
@@ -349,39 +350,49 @@ button {
 
 .search-example-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
 }
 
-.search-example-grid button {
-  min-width: 0;
-  min-height: 42px;
-  display: grid;
-  grid-template-columns: 4px 10px minmax(0, 1fr) 10px;
-  align-items: center;
-  gap: 7px;
+.category-menu {
   overflow: hidden;
-  padding: 0 9px 0 0;
-  color: var(--green-dark);
-  background: color-mix(in srgb, var(--area-color) 8%, white);
-  border: 1px solid color-mix(in srgb, var(--area-color) 42%, #d8e0e8);
-  border-radius: 10px;
-  box-shadow: 0 5px 14px rgba(1, 45, 91, 0.06);
-  cursor: pointer;
-  text-align: left;
-  font-size: 10px;
-  font-weight: 800;
-  line-height: 1.15;
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  background: color-mix(in srgb, var(--area-color) 5%, white);
+  border: 1px solid color-mix(in srgb, var(--area-color) 35%, #d8e0e8);
+  border-radius: 11px;
+  box-shadow: 0 5px 14px rgba(1, 45, 91, 0.05);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
-.search-example-grid button:hover,
-.search-example-grid button:focus-visible {
-  background: color-mix(in srgb, var(--area-color) 16%, white);
+.category-menu.is-open {
   border-color: var(--area-color);
-  box-shadow: 0 8px 18px rgba(1, 45, 91, 0.11);
+  box-shadow: 0 10px 24px rgba(1, 45, 91, 0.1);
+}
+
+.category-trigger {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: 5px 10px minmax(0, 1fr) auto 18px;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  padding: 0 11px 0 0;
+  color: var(--green-dark);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.15;
+  transition: background 160ms ease;
+}
+
+.category-trigger:hover,
+.category-trigger:focus-visible {
+  background: color-mix(in srgb, var(--area-color) 16%, white);
   outline: none;
-  transform: translateX(2px);
 }
 
 .category-rail {
@@ -403,19 +414,97 @@ button {
   min-width: 0;
 }
 
+.category-count {
+  min-width: 24px;
+  padding: 3px 7px;
+  color: var(--green-dark);
+  background: color-mix(in srgb, var(--area-color) 18%, white);
+  border-radius: 999px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 900;
+}
+
 .category-arrow {
   color: var(--area-color);
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 900;
   line-height: 1;
+  text-align: center;
+  transition: transform 160ms ease;
+}
+
+.category-menu.is-open .category-arrow {
+  transform: rotate(180deg);
+}
+
+.category-brand-list {
+  display: grid;
+  padding: 4px 10px 10px 23px;
+  background: rgba(255, 255, 255, 0.72);
+  border-top: 1px solid color-mix(in srgb, var(--area-color) 25%, #e3e9ef);
+  animation: category-open 180ms ease-out;
+}
+
+@keyframes category-open {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.category-brand-list button {
+  width: 100%;
+  min-height: 36px;
+  display: grid;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  color: var(--green-dark);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid #e8edf1;
+  cursor: pointer;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.category-brand-list button:hover,
+.category-brand-list button:focus-visible {
+  color: var(--area-color);
+  background: color-mix(in srgb, var(--area-color) 8%, white);
+  outline: none;
+}
+
+.category-all-link {
+  grid-template-columns: minmax(0, 1fr) auto;
+  font-weight: 900 !important;
+}
+
+.category-brand-link {
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+}
+
+.category-brand-link > span:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.category-brand-pin {
+  color: var(--area-color);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.category-empty {
+  margin: 8px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 .prototype-note {
-  position: absolute;
-  right: clamp(22px, 3vw, 42px);
-  bottom: 24px;
-  left: clamp(22px, 3vw, 42px);
-  margin: 0;
+  margin: 24px 0 0;
   color: #8b938e;
   font-size: 11px;
   line-height: 1.4;

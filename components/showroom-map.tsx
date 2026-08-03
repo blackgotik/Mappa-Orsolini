@@ -38,6 +38,7 @@ export function ShowroomMap() {
   const [query, setQuery] = useState("");
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const [activeBrandId, setActiveBrandId] = useState<string | null>(null);
+  const [openAreaSlug, setOpenAreaSlug] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [editorMode, setEditorMode] = useState(false);
   const [brandMarkers, setBrandMarkers] = useState<BrandMarker[]>([]);
@@ -95,6 +96,23 @@ export function ShowroomMap() {
     [activeBrandResults],
   );
   const highlightedAreaSlug = editorMode ? draftAreaSlug : activeBrand ? null : activeSlug;
+  const brandsByArea = useMemo(() => {
+    const grouped: Record<string, BrandMarker[]> = {};
+
+    showroomAreas.forEach((area) => {
+      const uniqueBrands = new Map<string, BrandMarker>();
+      publishedBrands
+        .filter((brand) => brand.areaSlug === area.slug)
+        .forEach((brand) => {
+          const key = normalize(brand.name);
+          if (!uniqueBrands.has(key)) uniqueBrands.set(key, brand);
+        });
+      grouped[area.slug] = Array.from(uniqueBrands.values())
+        .sort((a, b) => a.name.localeCompare(b.name, "it"));
+    });
+
+    return grouped;
+  }, []);
   const matches = useMemo(() => {
     const term = normalize(query);
     if (!term) return [];
@@ -495,19 +513,56 @@ export function ShowroomMap() {
                 <div className="search-examples">
                   <span className="search-examples-title">Esplora i reparti</span>
                   <div className="search-example-grid">
-                    {showroomAreas.map((area) => (
-                      <button
-                        type="button"
-                        key={area.slug}
-                        onClick={() => selectArea(area.slug)}
-                        style={{ "--area-color": area.color } as React.CSSProperties}
-                      >
-                        <span className="category-rail" aria-hidden="true" />
-                        <span className="category-dot" aria-hidden="true" />
-                        <span className="category-label">{area.name}</span>
-                        <span className="category-arrow" aria-hidden="true">›</span>
-                      </button>
-                    ))}
+                    {showroomAreas.map((area) => {
+                      const areaBrands = brandsByArea[area.slug] ?? [];
+                      const isOpen = openAreaSlug === area.slug;
+
+                      return (
+                        <section
+                          className={`category-menu${isOpen ? " is-open" : ""}`}
+                          key={area.slug}
+                          style={{ "--area-color": area.color } as React.CSSProperties}
+                        >
+                          <button
+                            className="category-trigger"
+                            type="button"
+                            aria-expanded={isOpen}
+                            aria-controls={`category-brands-${area.slug}`}
+                            onClick={() => setOpenAreaSlug((current) => current === area.slug ? null : area.slug)}
+                          >
+                            <span className="category-rail" aria-hidden="true" />
+                            <span className="category-dot" aria-hidden="true" />
+                            <span className="category-label">{area.name}</span>
+                            <span className="category-count" aria-label={`${areaBrands.length} marchi`}>{areaBrands.length}</span>
+                            <span className="category-arrow" aria-hidden="true">⌄</span>
+                          </button>
+
+                          {isOpen ? (
+                            <div className="category-brand-list" id={`category-brands-${area.slug}`}>
+                              <button className="category-all-link" type="button" onClick={() => selectArea(area.slug)}>
+                                <span>Vedi tutto il reparto</span>
+                                <span aria-hidden="true">→</span>
+                              </button>
+
+                              {areaBrands.length > 0 ? areaBrands.map((brand) => (
+                                <button
+                                  className="category-brand-link"
+                                  type="button"
+                                  key={brand.id}
+                                  onClick={() => selectBrand(brand.id)}
+                                >
+                                  <span className="category-brand-pin" aria-hidden="true">⌖</span>
+                                  <span>{brand.name}</span>
+                                  <span aria-hidden="true">›</span>
+                                </button>
+                              )) : (
+                                <p className="category-empty">Nessun marchio ancora inserito.</p>
+                              )}
+                            </div>
+                          ) : null}
+                        </section>
+                      );
+                    })}
                   </div>
                 </div>
               )}
