@@ -493,11 +493,22 @@ export function ShowroomMap() {
                 </article>
               ) : (
                 <div className="search-examples">
-                  <span>Prova a cercare</span>
-                  <button onClick={() => selectArea("cucine")}>Cucine</button>
-                  <button onClick={() => selectArea("sanitari")}>Sanitari</button>
-                  <button onClick={() => selectArea("parquet-spc")}>Parquet</button>
-                </div>
+  <span className="search-examples-title">Esplora i reparti</span>
+
+  <div className="search-example-grid">
+    {showroomAreas.map((area) => (
+      <button
+        type="button"
+        key={area.slug}
+        onClick={() => selectArea(area.slug)}
+        style={{ "--area-color": area.color } as React.CSSProperties}
+      >
+        <span className="section-color" aria-hidden="true" />
+        <span>{area.name}</span>
+      </button>
+    ))}
+  </div>
+</div>
               )}
 
               <p className="prototype-note">Sono già disponibili {publishedBrands.length} segnaposto. Gli altri verranno aggiunti progressivamente.</p>
