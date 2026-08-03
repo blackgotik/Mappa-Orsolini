@@ -493,22 +493,35 @@ export function ShowroomMap() {
                 </article>
               ) : (
                 <div className="search-examples">
-  <span className="search-examples-title">Esplora i reparti</span>
-
-  <div className="search-example-grid">
-    {showroomAreas.map((area) => (
-      <button
-        type="button"
-        key={area.slug}
-        onClick={() => selectArea(area.slug)}
-        style={{ "--area-color": area.color } as React.CSSProperties}
-      >
-        <span className="section-color" aria-hidden="true" />
-        <span>{area.name}</span>
-      </button>
-    ))}
-  </div>
-</div>
+                  <span>Esplora i reparti</span>
+                  {showroomAreas.map((area) => (
+                    <button
+                      type="button"
+                      key={area.slug}
+                      onClick={() => selectArea(area.slug)}
+                      style={{
+                        color: "#012d5b",
+                        backgroundColor: `${area.color}1a`,
+                        border: `1px solid ${area.color}80`,
+                        boxShadow: `inset 0 -3px 0 ${area.color}`,
+                      }}
+                    >
+                      <span
+                        aria-hidden="true"
+                        style={{
+                          width: 9,
+                          height: 9,
+                          display: "inline-block",
+                          marginRight: 6,
+                          backgroundColor: area.color,
+                          borderRadius: "50%",
+                          verticalAlign: "-1px",
+                        }}
+                      />
+                      {area.name}
+                    </button>
+                  ))}
+                </div>
               )}
 
               <p className="prototype-note">Sono già disponibili {publishedBrands.length} segnaposto. Gli altri verranno aggiunti progressivamente.</p>
