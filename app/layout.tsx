@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mappa Showroom Orsolini Pomezia",
-  description: "Trova reparti, prodotti e marchi nello showroom Orsolini di Pomezia.",
+  title: "Benvenuti nello showroom Orsolini Pomezia",
+  description: "Esplora lo showroom Orsolini di Pomezia e trova reparti, prodotti e marchi.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

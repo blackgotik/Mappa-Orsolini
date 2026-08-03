@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Aprire `http://localhost:3000`.
+Aprire `http://localhost:3000` per la pagina di benvenuto oppure `http://localhost:3000/mappa` per la mappa.
 
 ## Pubblicazione su Vercel
 
@@ -25,6 +25,8 @@ Aprire `http://localhost:3000`.
 
 ## Stato del prototipo
 
+- Pagina di benvenuto mobile-first con messaggio marketing, statistiche dinamiche e accesso diretto alla mappa.
+- La pagina principale `/` introduce lo showroom; la mappa interattiva è disponibile su `/mappa`.
 - Ricerca per reparto e termini associati.
 - Logo e colori istituzionali ripresi dal sito ufficiale Orsolini.
 - Evidenziazione delle aree con geometrie vettoriali originali.
@@ -41,8 +43,9 @@ Aprire `http://localhost:3000`.
 - Spostamento dei punti tramite trascinamento ed eliminazione dall’elenco.
 - Esportazione del file `marchi-orsolini.json` per la pubblicazione definitiva.
 - Pubblicazione dei marchi tramite sostituzione diretta di `data/marchi-orsolini.json`; i perimetri già tracciati restano in `data/brand-zones.ts`.
-- Elenco aggiornato a 60 segnaposti e 51 marchi distinti, raggruppati automaticamente nei rispettivi reparti.
+- Elenco aggiornato a 65 segnaposti e 56 marchi distinti, raggruppati automaticamente nei rispettivi reparti.
+- Indicatore permanente “Tu sei qui” posizionato all'ingresso dello showroom.
 
 ## Rilievo dei marchi
 
-Aprire, per esempio, `http://localhost:3000/?editor=1`. Inserire il nome del marchio, scegliere il reparto e toccare la posizione sulla planimetria. Il punto può essere trascinato per correggerlo. Al termine usare **Esporta elenco** e conservare il file JSON.
+Aprire, per esempio, `http://localhost:3000/mappa?editor=1`. Anche il vecchio indirizzo `/?editor=1` viene inoltrato automaticamente. Inserire il nome del marchio, scegliere il reparto e toccare la posizione sulla planimetria. Il punto può essere trascinato per correggerlo. Al termine usare **Esporta elenco** e conservare il file JSON.

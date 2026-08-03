@@ -422,9 +422,9 @@ export function ShowroomMap() {
           ) : (
             <>
               <div className="panel-copy">
-                <p className="eyebrow">Orsolini Pomezia</p>
-                <h1>Pianifica il tuo percorso</h1>
-                <p>Cerca ciò che desideri e lasciati guidare tra le nostre collezioni.</p>
+                <p className="eyebrow">Trova ciò che cerchi</p>
+                <h1>Cosa stai cercando?</h1>
+                <p>Cerca un reparto, un prodotto o un marchio presente nello showroom.</p>
               </div>
 
               <div className="search-wrap">
@@ -758,9 +758,14 @@ export function ShowroomMap() {
                   );
                 }) : null}
 
-                <g className="entrance-marker" transform="translate(566 1545)" aria-hidden="true">
-                  <path d="M 0 22 V -8 M -12 4 L 0 -10 L 12 4" />
-                  <text x="0" y="42">INGRESSO</text>
+                <g className="you-are-here-marker" transform="translate(566 1498)" aria-hidden="true">
+                  <circle className="you-are-here-pulse" r="40" />
+                  <path className="you-are-here-pin" d="M 0,-24 C -17,-24 -27,-13 -27,1 C -27,20 0,42 0,42 C 0,42 27,20 27,1 C 27,-13 17,-24 0,-24 Z" />
+                  <circle className="you-are-here-core" r="8" />
+                  <path className="you-are-here-leader" d="M 24 -5 H 35" />
+                  <rect className="you-are-here-label" x="34" y="-44" width="154" height="40" rx="12" />
+                  <text className="you-are-here-text" x="111" y="-18">TU SEI QUI</text>
+                  <text className="entrance-caption" x="0" y="64">INGRESSO</text>
                 </g>
               </svg>
             </div>
