@@ -6,439 +6,67 @@
     "height": 1588
   },
   "brands": [
-    {
-      "id": "5823311a-3693-460d-908b-0cd7f0ee9860",
-      "name": "Target Point",
-      "areaSlug": "arredamento",
-      "x": 738.39,
-      "y": 1248.5
-    },
-    {
-      "id": "1efdc86a-29e4-4c78-9b09-f4b25a8f72cf",
-      "name": "Forma Cucine COLIBRì",
-      "areaSlug": "cucine",
-      "x": 563.81,
-      "y": 1261.97
-    },
-    {
-      "id": "94573e01-908d-4d51-8b56-b50e27667baa",
-      "name": "Marazzi",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 663.45,
-      "y": 1201.19
-    },
-    {
-      "id": "2561eddd-2833-4f8b-8b7a-cd5d8c0c3d23",
-      "name": "Glass",
-      "areaSlug": "wellness",
-      "x": 625.4,
-      "y": 1351.91
-    },
-    {
-      "id": "d85437d3-dc04-4e4f-9f5a-628d16702fda",
-      "name": "Marazzi",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 799.17,
-      "y": 1123.55
-    },
-    {
-      "id": "488ce8b7-82d3-4ba0-97a3-6c5f74264a05",
-      "name": "Marazzi",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 902.28,
-      "y": 1153.53
-    },
-    {
-      "id": "804d4576-134d-4b7c-b6f8-d6f7d062be5a",
-      "name": "Cotto d'Este",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 662.51,
-      "y": 982.4
-    },
-    {
-      "id": "dcbdd34f-80df-49b3-891e-c836034b5288",
-      "name": "Mirage",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 622.04,
-      "y": 437.23
-    },
-    {
-      "id": "e5eeeff4-0c13-49b7-80e0-0659694010b9",
-      "name": "Fap",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 787.06,
-      "y": 182.99
-    },
-    {
-      "id": "de830132-2045-4869-9eaf-c46432900532",
-      "name": "Imola",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 772.42,
-      "y": 388.02
-    },
-    {
-      "id": "8707fc51-d4ae-4b95-bc64-200f83fa4077",
-      "name": "Mirage",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 425.01,
-      "y": 432.42
-    },
-    {
-      "id": "a1f4852a-dbf0-4454-b150-166a447ca964",
-      "name": "Bellosta",
-      "areaSlug": "rubinetteria",
-      "x": 528.65,
-      "y": 812.56
-    },
-    {
-      "id": "f54af9ba-38f5-420f-9760-17856e2bb750",
-      "name": "Tremme",
-      "areaSlug": "rubinetteria",
-      "x": 563.57,
-      "y": 780.3
-    },
-    {
-      "id": "d665da5b-df39-4c19-ad0e-e0d5ba36e71b",
-      "name": "Cordivari",
-      "areaSlug": "termoarredi",
-      "x": 650.92,
-      "y": 800.63
-    },
-    {
-      "id": "49934b15-890e-45ce-972f-35b8ccff90e2",
-      "name": "Cerasarda",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 899.39,
-      "y": 763.42
-    },
-    {
-      "id": "04eb5159-5b16-4cf1-8b7c-dd6c046fee51",
-      "name": "Mardegan",
-      "areaSlug": "parquet-spc",
-      "x": 469.99,
-      "y": 928.54
-    },
-    {
-      "id": "04883234-c54d-45d0-a887-970bbd046fad",
-      "name": "Italwood",
-      "areaSlug": "parquet-spc",
-      "x": 593.27,
-      "y": 956.58
-    },
-    {
-      "id": "ce775ac7-5588-4cb8-beee-53d3f27a3ebf",
-      "name": "Serenissima",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 426.61,
-      "y": 601.02
-    },
-    {
-      "id": "0a3dab60-01c1-4585-99d7-568e20ec10f4",
-      "name": "De Maio",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 792.11,
-      "y": 866.09
-    },
-    {
-      "id": "a200889f-d425-465d-b967-3b9fe782abc1",
-      "name": "Forma Cucine ARIATECH",
-      "areaSlug": "cucine",
-      "x": 450.78,
-      "y": 1255.61
-    },
-    {
-      "id": "2a7cdd7f-f834-4e17-99db-e26424357883",
-      "name": "Forma Cucine TREND",
-      "areaSlug": "cucine",
-      "x": 584.63,
-      "y": 1131.81
-    },
-    {
-      "id": "226e34ea-ece6-461f-aded-eb64981c0767",
-      "name": "Forma Cucine BELLARIA",
-      "areaSlug": "cucine",
-      "x": 407.88,
-      "y": 1264.84
-    },
-    {
-      "id": "683efaaa-bb5f-41a3-97ca-f18d54006124",
-      "name": "Reception",
-      "areaSlug": "accoglienza",
-      "x": 474.15,
-      "y": 1383.08
-    },
-    {
-      "id": "e919df16-6f5d-4232-a212-d191ad5b6125",
-      "name": "Nobili",
-      "areaSlug": "rubinetteria",
-      "x": 560.25,
-      "y": 807.02
-    },
-    {
-      "id": "9dd86147-b648-4f5e-a47f-e85c71cc1f49",
-      "name": "Geda",
-      "areaSlug": "rubinetteria",
-      "x": 506.08,
-      "y": 797.48
-    },
-    {
-      "id": "e7781fc0-bd77-4171-aa39-3e02af204f72",
-      "name": "Radomonte",
-      "areaSlug": "rubinetteria",
-      "x": 553,
-      "y": 818.26
-    },
-    {
-      "id": "fccc87cd-fec3-4a5a-b2b1-9c8c5222ad13",
-      "name": "Hansgrohe",
-      "areaSlug": "rubinetteria",
-      "x": 524.1,
-      "y": 797.46
-    },
-    {
-      "id": "cb63395c-5459-48b9-b135-64bb405b4b18",
-      "name": "Virag",
-      "areaSlug": "parquet-spc",
-      "x": 516.82,
-      "y": 435.03
-    },
-    {
-      "id": "f20280ee-0e0a-4260-83bd-95ca9c92270b",
-      "name": "Italwood",
-      "areaSlug": "parquet-spc",
-      "x": 559.99,
-      "y": 430.92
-    },
-    {
-      "id": "cb8f52b4-5ac8-4df5-86a6-7f8786ecb9c3",
-      "name": "LaFaenza",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 660.27,
-      "y": 557.19
-    },
-    {
-      "id": "b487ae92-b244-40a4-bb64-679038d60b7e",
-      "name": "Leonardo",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 654.82,
-      "y": 474.19
-    },
-    {
-      "id": "7838b1cc-fc34-453d-8d28-38fb17f178a6",
-      "name": "LaFaenza",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 733.97,
-      "y": 443.33
-    },
-    {
-      "id": "8c171701-a9f5-4b87-921e-a32d1b330d3f",
-      "name": "Imola",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 902.11,
-      "y": 522.16
-    },
-    {
-      "id": "f8cf6067-c14e-4556-bea5-0db942124520",
-      "name": "Caesar",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 739.2,
-      "y": 259.46
-    },
-    {
-      "id": "7a5ae9d1-6434-44ab-88bd-ed8900011282",
-      "name": "StudiOne",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 772.01,
-      "y": 805.07
-    },
-    {
-      "id": "fc87b98f-0e93-4734-b74d-e30d8d1ed8b0",
-      "name": "Boxer",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 845.82,
-      "y": 845.01
-    },
-    {
-      "id": "d9eb493b-c733-4783-8744-9bbd0c349664",
-      "name": "Cotto d'Este",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 760.4,
-      "y": 954.72
-    },
-    {
-      "id": "bf65e9c1-4105-4691-89f8-1367de99bd6a",
-      "name": "Cercom",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 411.83,
-      "y": 690.41
-    },
-    {
-      "id": "52ce1f71-70d8-4af5-ab98-7bb529700bfb",
-      "name": "Gsi",
-      "areaSlug": "sanitari",
-      "x": 411.95,
-      "y": 755.71
-    },
-    {
-      "id": "b7355c2e-dc28-462b-9fff-23f2bb3be9ac",
-      "name": "Simas",
-      "areaSlug": "sanitari",
-      "x": 453.76,
-      "y": 772
-    },
-    {
-      "id": "38f868a4-7b31-4fab-8b01-994dd122075f",
-      "name": "Cielo",
-      "areaSlug": "sanitari",
-      "x": 418.07,
-      "y": 796.88
-    },
-    {
-      "id": "a6f65631-8f90-49e0-9178-81e860e5cfea",
-      "name": "Flaminia",
-      "areaSlug": "sanitari",
-      "x": 458.18,
-      "y": 784.7
-    },
-    {
-      "id": "9bbfa78e-e72f-4a33-8021-5662d0f18369",
-      "name": "Geberit",
-      "areaSlug": "sanitari",
-      "x": 442.09,
-      "y": 828.36
-    },
-    {
-      "id": "5b37262f-0af0-4cfc-af49-3b66236af555",
-      "name": "Progetto",
-      "areaSlug": "accessori-bagno",
-      "x": 598.38,
-      "y": 756.02
-    },
-    {
-      "id": "b1bf661f-95e9-42c0-aee2-9fd81dbeee7d",
-      "name": "Dierre",
-      "areaSlug": "porte-finestre",
-      "x": 815.8,
-      "y": 1355.74
-    },
-    {
-      "id": "b2249e8f-a678-454c-8194-6ccdcd06fe52",
-      "name": "Pail",
-      "areaSlug": "porte-finestre",
-      "x": 765.3,
-      "y": 1341.59
-    },
-    {
-      "id": "dc8c6ba5-4c86-4442-987b-d69ab4ea98f3",
-      "name": "Bertolotto",
-      "areaSlug": "porte-finestre",
-      "x": 787.46,
-      "y": 1393.56
-    },
-    {
-      "id": "6187af4b-4d81-43ff-8435-d1dc18697f8f",
-      "name": "Venus",
-      "areaSlug": "porte-finestre",
-      "x": 730.46,
-      "y": 1378.92
-    },
-    {
-      "id": "933c2ea1-ad92-4fcc-845e-2bdaa2d42745",
-      "name": "Starpur",
-      "areaSlug": "porte-finestre",
-      "x": 843.48,
-      "y": 1400.67
-    },
-    {
-      "id": "e277879d-a701-4b80-a163-ddc3abd70d00",
-      "name": "Caesar",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 893.57,
-      "y": 301.91
-    },
-    {
-      "id": "c23a46e0-d14c-4bc0-ba64-41c190da62fd",
-      "name": "Ravaioli",
-      "areaSlug": "parquet-spc",
-      "x": 525.14,
-      "y": 1447.7
-    },
-    {
-      "id": "385f6697-99cb-4a09-a943-f8c04cb229bd",
-      "name": "Tubes",
-      "areaSlug": "termoarredi",
-      "x": 666.56,
-      "y": 851.7
-    },
-    {
-      "id": "0f685229-372b-46c1-8aa6-1bc0b9a1ffbf",
-      "name": "Global",
-      "areaSlug": "termoarredi",
-      "x": 639.31,
-      "y": 814.36
-    },
-    {
-      "id": "e32a4b77-df1c-4cef-a14a-d537c1f09b80",
-      "name": "Bardelli",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 762.95,
-      "y": 682.51
-    },
-    {
-      "id": "176cbfad-bec6-4b1c-b59e-9c9f6dee642d",
-      "name": "Gianni Gaidi",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 857.44,
-      "y": 720.16
-    },
-    {
-      "id": "3daed0df-a851-47fa-96fe-ebf163262667",
-      "name": "Kaldewei",
-      "areaSlug": "sanitari",
-      "x": 408.9,
-      "y": 801.89
-    },
-    {
-      "id": "d8ddd6ed-b2c5-489e-af11-ddef18946266",
-      "name": "Homes",
-      "areaSlug": "arredamento",
-      "x": 444.17,
-      "y": 1084.77
-    },
-    {
-      "id": "4d9ec6e9-e020-429e-b55e-89219fbe7a0f",
-      "name": "AfoSofa",
-      "areaSlug": "arredamento",
-      "x": 529.15,
-      "y": 1086.53
-    },
-    {
-      "id": "e1463680-d8c3-4a0e-b051-a566d2979d9c",
-      "name": "Servizi",
-      "areaSlug": "servizi",
-      "x": 688.33,
-      "y": 288.61
-    },
-    {
-      "id": "34937041-16e9-4b41-80d3-f744c1dded24",
-      "name": "Pietre d'arredo",
-      "areaSlug": "pavimenti-rivestimenti",
-      "x": 542.63,
-      "y": 388.37
-    },
-    {
-      "id": "8f9939b0-c1cd-4ed9-afcf-d26f45a24a1e",
-      "name": "Caffé e snack",
-      "areaSlug": "snack",
-      "x": 500.89,
-      "y": 312.05
-    },
-    {
-      "id": "26706fdd-af87-4515-b541-cdf8dcd9aab2",
-      "name": "Inda",
-      "areaSlug": "accessori-bagno",
-      "x": 577.71,
-      "y": 746.06
-    }
+    { "id": "5823311a-3693-460d-908b-0cd7f0ee9860", "name": "Target Point", "areaSlug": "arredamento", "x": 738.39, "y": 1248.5 },
+    { "id": "1efdc86a-29e4-4c78-9b09-f4b25a8f72cf", "name": "Forma Cucine COLIBRì", "areaSlug": "cucine", "x": 563.81, "y": 1261.97 },
+    { "id": "94573e01-908d-4d51-8b56-b50e27667baa", "name": "Marazzi", "areaSlug": "pavimenti-rivestimenti", "x": 663.45, "y": 1201.19 },
+    { "id": "2561eddd-2833-4f8b-8b7a-cd5d8c0c3d23", "name": "Glass", "areaSlug": "wellness", "x": 625.4, "y": 1351.91 },
+    { "id": "d85437d3-dc04-4e4f-9f5a-628d16702fda", "name": "Marazzi", "areaSlug": "pavimenti-rivestimenti", "x": 799.17, "y": 1123.55 },
+    { "id": "488ce8b7-82d3-4ba0-97a3-6c5f74264a05", "name": "Marazzi", "areaSlug": "pavimenti-rivestimenti", "x": 902.28, "y": 1153.53 },
+    { "id": "804d4576-134d-4b7c-b6f8-d6f7d062be5a", "name": "Cotto d'Este", "areaSlug": "pavimenti-rivestimenti", "x": 662.51, "y": 982.4 },
+    { "id": "dcbdd34f-80df-49b3-891e-c836034b5288", "name": "Mirage", "areaSlug": "pavimenti-rivestimenti", "x": 622.04, "y": 437.23 },
+    { "id": "e5eeeff4-0c13-49b7-80e0-0659694010b9", "name": "Fap", "areaSlug": "pavimenti-rivestimenti", "x": 787.06, "y": 182.99 },
+    { "id": "de830132-2045-4869-9eaf-c46432900532", "name": "Imola", "areaSlug": "pavimenti-rivestimenti", "x": 772.42, "y": 388.02 },
+    { "id": "8707fc51-d4ae-4b95-bc64-200f83fa4077", "name": "Mirage", "areaSlug": "pavimenti-rivestimenti", "x": 425.01, "y": 432.42 },
+    { "id": "a1f4852a-dbf0-4454-b150-166a447ca964", "name": "Bellosta", "areaSlug": "rubinetteria", "x": 528.65, "y": 812.56 },
+    { "id": "f54af9ba-38f5-420f-9760-17856e2bb750", "name": "Tremme", "areaSlug": "rubinetteria", "x": 563.57, "y": 780.3 },
+    { "id": "d665da5b-df39-4c19-ad0e-e0d5ba36e71b", "name": "Cordivari", "areaSlug": "termoarredi", "x": 650.92, "y": 800.63 },
+    { "id": "49934b15-890e-45ce-972f-35b8ccff90e2", "name": "Cerasarda", "areaSlug": "pavimenti-rivestimenti", "x": 899.39, "y": 763.42 },
+    { "id": "04eb5159-5b16-4cf1-8b7c-dd6c046fee51", "name": "Mardegan", "areaSlug": "parquet-spc", "x": 469.99, "y": 928.54 },
+    { "id": "04883234-c54d-45d0-a887-970bbd046fad", "name": "Italwood", "areaSlug": "parquet-spc", "x": 593.27, "y": 956.58 },
+    { "id": "ce775ac7-5588-4cb8-beee-53d3f27a3ebf", "name": "Serenissima", "areaSlug": "pavimenti-rivestimenti", "x": 426.61, "y": 601.02 },
+    { "id": "0a3dab60-01c1-4585-99d7-568e20ec10f4", "name": "De Maio", "areaSlug": "pavimenti-rivestimenti", "x": 792.11, "y": 866.09 },
+    { "id": "a200889f-d425-465d-b967-3b9fe782abc1", "name": "Forma Cucine ARIATECH", "areaSlug": "cucine", "x": 450.78, "y": 1255.61 },
+    { "id": "2a7cdd7f-f834-4e17-99db-e26424357883", "name": "Forma Cucine TREND", "areaSlug": "cucine", "x": 584.63, "y": 1131.81 },
+    { "id": "226e34ea-ece6-461f-aded-eb64981c0767", "name": "Forma Cucine BELLARIA", "areaSlug": "cucine", "x": 407.88, "y": 1264.84 },
+    { "id": "683efaaa-bb5f-41a3-97ca-f18d54006124", "name": "Reception", "areaSlug": "accoglienza", "x": 474.15, "y": 1383.08 },
+    { "id": "e919df16-6f5d-4232-a212-d191ad5b6125", "name": "Nobili", "areaSlug": "rubinetteria", "x": 560.25, "y": 807.02 },
+    { "id": "9dd86147-b648-4f5e-a47f-e85c71cc1f49", "name": "Geda", "areaSlug": "rubinetteria", "x": 506.08, "y": 797.48 },
+    { "id": "e7781fc0-bd77-4171-aa39-3e02af204f72", "name": "Radomonte", "areaSlug": "rubinetteria", "x": 553, "y": 818.26 },
+    { "id": "fccc87cd-fec3-4a5a-b2b1-9c8c5222ad13", "name": "Hansgrohe", "areaSlug": "rubinetteria", "x": 524.1, "y": 797.46 },
+    { "id": "cb63395c-5459-48b9-b135-64bb405b4b18", "name": "Virag", "areaSlug": "parquet-spc", "x": 516.82, "y": 435.03 },
+    { "id": "f20280ee-0e0a-4260-83bd-95ca9c92270b", "name": "Italwood", "areaSlug": "parquet-spc", "x": 559.99, "y": 430.92 },
+    { "id": "cb8f52b4-5ac8-4df5-86a6-7f8786ecb9c3", "name": "LaFaenza", "areaSlug": "pavimenti-rivestimenti", "x": 660.27, "y": 557.19 },
+    { "id": "b487ae92-b244-40a4-bb64-679038d60b7e", "name": "Leonardo", "areaSlug": "pavimenti-rivestimenti", "x": 654.82, "y": 474.19 },
+    { "id": "7838b1cc-fc34-453d-8d28-38fb17f178a6", "name": "LaFaenza", "areaSlug": "pavimenti-rivestimenti", "x": 733.97, "y": 443.33 },
+    { "id": "8c171701-a9f5-4b87-921e-a32d1b330d3f", "name": "Imola", "areaSlug": "pavimenti-rivestimenti", "x": 902.11, "y": 522.16 },
+    { "id": "f8cf6067-c14e-4556-bea5-0db942124520", "name": "Caesar", "areaSlug": "pavimenti-rivestimenti", "x": 739.2, "y": 259.46 },
+    { "id": "7a5ae9d1-6434-44ab-88bd-ed8900011282", "name": "StudiOne", "areaSlug": "pavimenti-rivestimenti", "x": 772.01, "y": 805.07 },
+    { "id": "fc87b98f-0e93-4734-b74d-e30d8d1ed8b0", "name": "Boxer", "areaSlug": "pavimenti-rivestimenti", "x": 845.82, "y": 845.01 },
+    { "id": "d9eb493b-c733-4783-8744-9bbd0c349664", "name": "Cotto d'Este", "areaSlug": "pavimenti-rivestimenti", "x": 760.4, "y": 954.72 },
+    { "id": "bf65e9c1-4105-4691-89f8-1367de99bd6a", "name": "Cercom", "areaSlug": "pavimenti-rivestimenti", "x": 411.83, "y": 690.41 },
+    { "id": "52ce1f71-70d8-4af5-ab98-7bb529700bfb", "name": "Gsi", "areaSlug": "sanitari", "x": 411.95, "y": 755.71 },
+    { "id": "b7355c2e-dc28-462b-9fff-23f2bb3be9ac", "name": "Simas", "areaSlug": "sanitari", "x": 453.76, "y": 772 },
+    { "id": "38f868a4-7b31-4fab-8b01-994dd122075f", "name": "Cielo", "areaSlug": "sanitari", "x": 418.07, "y": 796.88 },
+    { "id": "a6f65631-8f90-49e0-9178-81e860e5cfea", "name": "Flaminia", "areaSlug": "sanitari", "x": 458.18, "y": 784.7 },
+    { "id": "9bbfa78e-e72f-4a33-8021-5662d0f18369", "name": "Geberit", "areaSlug": "sanitari", "x": 442.09, "y": 828.36 },
+    { "id": "5b37262f-0af0-4cfc-af49-3b66236af555", "name": "Progetto", "areaSlug": "accessori-bagno", "x": 598.38, "y": 756.02 },
+    { "id": "b1bf661f-95e9-42c0-aee2-9fd81dbeee7d", "name": "Dierre", "areaSlug": "porte-finestre", "x": 815.8, "y": 1355.74 },
+    { "id": "b2249e8f-a678-454c-8194-6ccdcd06fe52", "name": "Pail", "areaSlug": "porte-finestre", "x": 765.3, "y": 1341.59 },
+    { "id": "dc8c6ba5-4c86-4442-987b-d69ab4ea98f3", "name": "Bertolotto", "areaSlug": "porte-finestre", "x": 787.46, "y": 1393.56 },
+    { "id": "6187af4b-4d81-43ff-8435-d1dc18697f8f", "name": "Venus", "areaSlug": "porte-finestre", "x": 730.46, "y": 1378.92 },
+    { "id": "933c2ea1-ad92-4fcc-845e-2bdaa2d42745", "name": "Starpur", "areaSlug": "porte-finestre", "x": 843.48, "y": 1400.67 },
+    { "id": "e277879d-a701-4b80-a163-ddc3abd70d00", "name": "Caesar", "areaSlug": "pavimenti-rivestimenti", "x": 893.57, "y": 301.91 },
+    { "id": "c23a46e0-d14c-4bc0-ba64-41c190da62fd", "name": "Ravaioli", "areaSlug": "parquet-spc", "x": 525.14, "y": 1447.7 },
+    { "id": "385f6697-99cb-4a09-a943-f8c04cb229bd", "name": "Tubes", "areaSlug": "termoarredi", "x": 666.56, "y": 851.7 },
+    { "id": "0f685229-372b-46c1-8aa6-1bc0b9a1ffbf", "name": "Global", "areaSlug": "termoarredi", "x": 639.31, "y": 814.36 },
+    { "id": "e32a4b77-df1c-4cef-a14a-d537c1f09b80", "name": "Bardelli", "areaSlug": "pavimenti-rivestimenti", "x": 762.95, "y": 682.51 },
+    { "id": "176cbfad-bec6-4b1c-b59e-9c9f6dee642d", "name": "Gianni Gaidi", "areaSlug": "pavimenti-rivestimenti", "x": 857.44, "y": 720.16 },
+    { "id": "3daed0df-a851-47fa-96fe-ebf163262667", "name": "Kaldewei", "areaSlug": "sanitari", "x": 408.9, "y": 801.89 },
+    { "id": "d8ddd6ed-b2c5-489e-af11-ddef18946266", "name": "Homes", "areaSlug": "arredamento", "x": 444.17, "y": 1084.77 },
+    { "id": "4d9ec6e9-e020-429e-b55e-89219fbe7a0f", "name": "AfoSofa", "areaSlug": "arredamento", "x": 529.15, "y": 1086.53 },
+    { "id": "e1463680-d8c3-4a0e-b051-a566d2979d9c", "name": "Servizi", "areaSlug": "servizi", "x": 688.33, "y": 288.61 },
+    { "id": "34937041-16e9-4b41-80d3-f744c1dded24", "name": "Pietre d'arredo", "areaSlug": "pavimenti-rivestimenti", "x": 542.63, "y": 388.37 },
+    { "id": "8f9939b0-c1cd-4ed9-afcf-d26f45a24a1e", "name": "Caffé e snack", "areaSlug": "snack", "x": 500.89, "y": 312.05 },
+    { "id": "26706fdd-af87-4515-b541-cdf8dcd9aab2", "name": "Inda", "areaSlug": "accessori-bagno", "x": 577.71, "y": 746.06 }
   ]
 }

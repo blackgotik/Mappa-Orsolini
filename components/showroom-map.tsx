@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { FormEvent, PointerEvent as ReactPointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { showroomAreas } from "@/data/areas";
-import { publishedBrands, type BrandMarker } from "@/data/brands";
+import { publishedBrands, publishedBrandsExportedAt, type BrandMarker } from "@/data/brands";
 
 type MapPoint = { x: number; y: number };
 type SearchMatch = {
@@ -59,9 +59,18 @@ export function ShowroomMap() {
     try {
       const saved = window.localStorage.getItem(STORAGE_KEY);
       if (saved) {
-        const parsed = JSON.parse(saved) as { brands?: BrandMarker[] } | BrandMarker[];
+        const parsed = JSON.parse(saved) as {
+          brands?: BrandMarker[];
+          savedAt?: string;
+          sourceExportedAt?: string;
+        } | BrandMarker[];
         const storedBrands = Array.isArray(parsed) ? parsed : parsed.brands;
-        if (Array.isArray(storedBrands)) setBrandMarkers(storedBrands);
+        const draftSource = Array.isArray(parsed) ? "" : parsed.sourceExportedAt;
+        const localDraftMatchesPublishedSource = Array.isArray(storedBrands)
+          && Boolean(publishedBrandsExportedAt)
+          && draftSource === publishedBrandsExportedAt;
+
+        if (localDraftMatchesPublishedSource) setBrandMarkers(storedBrands);
         else setBrandMarkers(publishedBrands.map((brand) => ({ ...brand })));
       } else {
         setBrandMarkers(publishedBrands.map((brand) => ({ ...brand })));
@@ -76,7 +85,12 @@ export function ShowroomMap() {
 
   useEffect(() => {
     if (!brandsLoaded) return;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: 1, brands: brandMarkers }));
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      version: 2,
+      savedAt: new Date().toISOString(),
+      sourceExportedAt: publishedBrandsExportedAt,
+      brands: brandMarkers,
+    }));
   }, [brandMarkers, brandsLoaded]);
 
   const activeArea = showroomAreas.find((area) => area.slug === activeSlug) ?? null;

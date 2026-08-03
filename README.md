@@ -42,8 +42,8 @@ Aprire `http://localhost:3000` per la pagina di benvenuto oppure `http://localho
 - Salvataggio automatico dei segnaposto nel browser.
 - Spostamento dei punti tramite trascinamento ed eliminazione dall’elenco.
 - Esportazione del file `marchi-orsolini.json` per la pubblicazione definitiva.
-- Pubblicazione dei marchi tramite sostituzione diretta di `data/marchi-orsolini.json`; i perimetri già tracciati restano in `data/brand-zones.ts`.
-- Elenco aggiornato a 65 segnaposti e 56 marchi distinti, raggruppati automaticamente nei rispettivi reparti.
+- Pubblicazione dei marchi tramite sostituzione di `data/marchi-orsolini.json` oppure `source-assets/marchi-orsolini.json`: se entrambi esistono, viene usato automaticamente quello con `exportedAt` più recente.
+- Elenco aggiornato a 62 segnaposti e 54 marchi distinti, raggruppati automaticamente nei rispettivi reparti.
 - Indicatore permanente “Tu sei qui” posizionato all'ingresso dello showroom.
 
 ## Rilievo dei marchi
